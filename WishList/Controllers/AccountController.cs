@@ -32,10 +32,10 @@ namespace WishList.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View("Register");
+                return View(model);
             }
 
-            var result =  _userManager.CreateAsync(new ApplicationUser() { UserName = model.Email, Email = model.Email, PasswordHash = model.Password });
+            var result =  _userManager.CreateAsync(new ApplicationUser() { UserName = model.Email, Email = model.Email},model.Password);
 
             if (result.Result.Succeeded ==false )
             {
@@ -44,10 +44,10 @@ namespace WishList.Controllers
                     ModelState.AddModelError("Password", error.Description);
                 }
 
-                return View("Register");
+                return View(model);
             }
 
-            return RedirectToAction("HomeController", "Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
